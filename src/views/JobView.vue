@@ -5,7 +5,7 @@ import { reactive, onMounted } from 'vue'
 import { useRoute, RouterLink, useRouter } from 'vue-router'
 import BackButton from '@/components/BackButton.vue'
 import { useToast } from 'vue-toastification'
-
+import axiosInstance from '@/utils/axios.js'
 
 const route = useRoute()
 const router = useRouter()
@@ -19,22 +19,22 @@ const state = reactive({
 })
 
 const deleteJob = async () => {
-    try {
-        const confirm = window.confirm('Are you sure you want to delete this job?')
-        if (confirm) {
-            await axios.delete(`${import.meta.env.VITE_API_BASE_URL}/jobs/${jobId}`)
-            toast.success('Job deleted successfully')
-            router.push('/jobs')
-        }
-    } catch (error) {
-        console.error('Error deleting job', error)
-        toast.error('Error deleting job')
-    }
+	try {
+		const confirm = window.confirm('Are you sure you want to delete this job?')
+		if (confirm) {
+			await axiosInstance.delete(`/jobs/${jobId}`)
+			toast.success('Job deleted successfully')
+			router.push('/jobs')
+		}
+	} catch (error) {
+		console.error('Error deleting job', error)
+		toast.error('Error deleting job')
+	}
 }
 
 onMounted(async () => {
 	try {
-		const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/jobs/${jobId}`)
+		const response = await axiosInstance.get(`/jobs/${jobId}`)
 		state.job = response.data
 	} catch (error) {
 		console.error('Error fetching job', error)
@@ -45,7 +45,7 @@ onMounted(async () => {
 </script>
 
 <template>
-    <BackButton />
+	<BackButton />
 	<section v-if="!state.isLoading" class="bg-green-50">
 		<div class="container m-auto py-10 px-6">
 			<div class="grid grid-cols-1 md:grid-cols-70/30 w-full gap-6">
@@ -55,7 +55,7 @@ onMounted(async () => {
 						<h1 class="text-3xl font-bold mb-4">{{ state.job.title }}</h1>
 						<div class="text-gray-500 mb-4 flex align-middle justify-center md:justify-start">
 							<i class="pi pi-map-marker text-xl text-orange-700 mr-2"></i>
-							<p class="text-orange-700">{{ state.job.location}}</p>
+							<p class="text-orange-700">{{ state.job.location }}</p>
 						</div>
 					</div>
 
@@ -88,7 +88,7 @@ onMounted(async () => {
 
 						<h3 class="text-xl">Contact Email:</h3>
 
-						<p class="my-2 bg-green-100 p-2 font-bold">{{state.job.company.contactEmail}}</p>
+						<p class="my-2 bg-green-100 p-2 font-bold">{{ state.job.company.contactEmail }}</p>
 
 						<h3 class="text-xl">Contact Phone:</h3>
 
@@ -98,10 +98,14 @@ onMounted(async () => {
 					<!-- Manage -->
 					<div class="bg-white p-6 rounded-lg shadow-md mt-6">
 						<h3 class="text-xl font-bold mb-6">Manage Job</h3>
-						<RouterLink :to="`/jobs/edit/${state.job.id}`" class="bg-green-500 hover:bg-green-600 text-white text-center font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline mt-4 block"
+						<RouterLink
+							:to="`/jobs/edit/${state.job.id}`"
+							class="bg-green-500 hover:bg-green-600 text-white text-center font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline mt-4 block"
 							>Edit Job
-                        </RouterLink>
-						<button @click="deleteJob" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline mt-4 block">Delete Job</button>
+						</RouterLink>
+						<button @click="deleteJob" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline mt-4 block">
+							Delete Job
+						</button>
 					</div>
 				</aside>
 			</div>
