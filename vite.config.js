@@ -9,14 +9,7 @@ export default defineConfig({
     vue(),
   ],
   server: {
-    port: 3000,
-    proxy: {
-      '/api': {
-        target: 'https://vue-course-2024-traversy-media-backend-fcgqb3dhetekh7bd.canadaeast-01.azurewebsites.net',
-        changeOrigin: true,
-        rewrite: path => path.replace(/^\/api/, '')
-      }
-    }
+    port: 3001,
   },
   resolve: {
     alias: {
