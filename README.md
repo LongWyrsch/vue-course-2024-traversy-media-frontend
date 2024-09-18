@@ -1,29 +1,7 @@
-# vue-course-2024-traversy-media
+This project is a follow-along Vue.js tutorial by [Traversy Media - YouTube](https://www.youtube.com/@TraversyMedia).
 
-This template should help get you started developing with Vue 3 in Vite.
+Tutorial: [Vue.js Crash Course 2024 - YouTube](https://www.youtube.com/watch?v=VeNfHj6MhgA)
 
-## Recommended IDE Setup
+My project is hosted on Azure and live at https://red-glacier-069a5080f.5.azurestaticapps.net/.
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
+The backend GitHub repo: https://github.com/LongWyrsch/vue-course-2024-traversy-media-backend
